@@ -1,20 +1,26 @@
+import editor.Editor;
+import editor.spellcheck.SpellCheck;
+import editor.translate.Translate;
+
 public class EditorTest {
     public static void main(String[] args) {
         Editor editor = new Editor();
-        editor.paste("Hello, ");
-        editor.paste("world!");
+        //spellcheck
+        SpellCheck spellCheck = new SpellCheck();
+        editor.put(spellCheck.replace("helo "));
+        //trasnlate
+        Translate translate = new Translate();
+        editor.put(translate.translate("world ", true));
         editor.println();
-        editor.paste("This is a very long text that will be cut off because it is too long.");
+        editor.put("This is a very long text that will be cut off because it is too long. ");
         editor.println();
-        editor.paste("This is a very long text that will be cut off because it is too long.", 10);
+        editor.put("This is a very long text that will be cut off because it is too long.", 3);
         editor.println();
-        editor.settext("This is a new text.");
+        editor.put("This is a new text.", 10);
         editor.println();
-        editor.paste("This is a new text.");
+        editor.copy(5);
         editor.println();
-        editor.paste("This is a new text.", 10);
-        editor.println();
-        System.out.println(editor.copy(5));
+
     }
 }
 

@@ -1,3 +1,5 @@
+package editor;
+
 public class Editor {
     private StringBuilder text;
     private final int MAX_LENGTH = 1000;
@@ -22,8 +24,8 @@ public class Editor {
         this.text = new StringBuilder(newtext);
     }
 
-    // metodas paste text
-    public void paste(String newtext) {
+    // metodas put text
+    public void put(String newtext) {
         if (text.length() + newtext.length() <= MAX_LENGTH) {
             text.append(newtext);
         } else {
@@ -31,12 +33,12 @@ public class Editor {
         }
     }
 
-    // perkrautas metodas paste 
-    public void paste(String newtext, int symbolcount) {
+    // perkrautas metodas put 
+    public void put(String newtext, int symbolcount) {
         if (symbolcount > newtext.length()) {
             symbolcount = newtext.length();
         }
-        paste(newtext.substring(0, symbolcount));
+        put(newtext.substring(0, symbolcount));
     }
 
     // metodas copy 
@@ -51,6 +53,4 @@ public class Editor {
     public void println() {
         System.out.println("editor: " + text);
     }
-
 }
-
