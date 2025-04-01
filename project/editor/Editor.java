@@ -36,7 +36,7 @@ public class Editor {
     public void process() {
         incChangesCount();
     }
-
+    
     public void reset() {
         text = "";
         changesCount = 0;

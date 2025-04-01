@@ -5,27 +5,24 @@ import editor.Translate;
 public class EditorTest {
     public static void main(String[] args) {
 
-        SpellCheck editor = new SpellCheck(); 
-        editor.addWord("hello");
-        editor.put("hallo wotld jaga");
-        System.out.println(editor);
-        editor.process(); 
-        System.out.println(editor); 
+        Editor editor[] = { new SpellCheck(), new Translate() };
 
+        ((SpellCheck) editor[0]).addWord("hello");
+        editor[0].put("hallo wotld jaga");
+        System.out.println(editor[0]);
+        editor[0].process(); 
+        System.out.println(editor[0]); 
+        editor[0].reset();
 
-        Translate editor2 = new Translate(); 
-        editor2.addWord("hello", "labas");
-        editor2.put("hello world java");
-        System.out.println(editor2);
-        editor2.process(); 
-        System.out.println(editor2); 
+        ((Translate) editor[1]).addWord("hello", "labas");
+        editor[1].put("hello world java");
+        System.out.println(editor[1]);
+        editor[1].process(); 
+        System.out.println(editor[1]); 
 
-        Editor neweditor;
-        neweditor = editor2;
-
-        neweditor.reset();
-        
-        System.out.println(neweditor);
+        for (Editor e : editor) {
+            e.reset();
+        }
        
         //System.out.println(Editor.getChangesCount());
     }

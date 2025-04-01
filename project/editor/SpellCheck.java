@@ -15,8 +15,8 @@ public class SpellCheck extends Editor {
         this("");
     }
     
-    public void addWord(String words) {
-        dictionary.add(words);
+    public void addWord(String word) {
+        dictionary.add(word);
     }
 
     public String replace(String word) {
