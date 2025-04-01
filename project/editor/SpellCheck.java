@@ -1,23 +1,22 @@
-package editor.spellcheck;
+package editor;
 
-import editor.Editor;
 import java.util.LinkedList;
 import java.util.List;
 
 public class SpellCheck extends Editor {
     private List<String> dictionary;
 
-    public SpellCheck() {
+    public SpellCheck(String text) {
+        super(text); 
         dictionary = new LinkedList<>();
-        initializeDictionaries();
     }
 
-    private void initializeDictionaries() {
-        dictionary.add("hello");
-        dictionary.add("world");
-        dictionary.add("java");
-        dictionary.add("python");
-        // Add more words as needed
+    public SpellCheck() {
+        this("");
+    }
+    
+    public void addWord(String words) {
+        dictionary.add(words);
     }
 
     public String replace(String word) {
@@ -31,7 +30,7 @@ public class SpellCheck extends Editor {
             }
         }
 
-        return word; // Return the original word if no correction is found
+        return word; 
     }
 
     private boolean isOneCharDifferent(String word1, String word2) {
@@ -49,7 +48,28 @@ public class SpellCheck extends Editor {
             }
         }
 
-        return diffCount == 1;
+        return true;
+    }
+
+    public void reset() {
+        text = "";
+        dictionary.clear();
+    }
+
+    @Override
+    public void process() {
+        String[] words = text.split("\\s+");
+        StringBuilder correctedText = new StringBuilder();
+
+        for (String word : words) {
+            correctedText.append(replace(word)).append(" ");
+        }
+
+        text = correctedText.toString().trim();
+    }
+
+    @Override
+    public String toString() {
+        return "SpellCheck{" + "text='" + text + "'}";
     }
 }
-
