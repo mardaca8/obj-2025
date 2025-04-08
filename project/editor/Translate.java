@@ -21,12 +21,16 @@ public class Translate extends Editor {
         lithuanianWords.add(lithuanian);
     }
 
-    public String translate(boolean toLithuanian) {
+    public String translate(boolean toLithuanian) throws WordToTranslateNotFoundException {
         String[] words = text.split("\\s+");
         StringBuilder translatedText = new StringBuilder();
 
         for (String word : words) {
-            translatedText.append(translateWord(word, toLithuanian)).append(" ");
+            String translatedWord = translateWord(word, toLithuanian);
+            translatedText.append(translatedWord).append(" ");
+            if (translatedWord.equals(word)) {
+                throw new WordToTranslateNotFoundException("Word not found in dictionary", word);
+            }
         }
 
         return translatedText.toString().trim();
@@ -44,14 +48,14 @@ public class Translate extends Editor {
         return word;
     }
 
+    @Override
     public void reset() {
-        text = "";
+        super.reset();
         englishWords.clear();
         lithuanianWords.clear();
     }
 
-    @Override
-    public void process() {
+    public void translate() throws WordToTranslateNotFoundException {
         text = translate(true);
     }
 

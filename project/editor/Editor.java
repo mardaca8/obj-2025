@@ -1,42 +1,36 @@
 package editor;
 
-public class Editor {
+public abstract class Editor implements TextOperations {
     protected String text;
     private static int changesCount = 0;
 
     public Editor(String text) {
         this.text = text;
-        incChangesCount();
     }
 
     public Editor() {
         this("");
     }
 
+    @Override
     public void put(String newtext) {
         text = text + newtext; 
-        incChangesCount();          
+        changesCount++;          
     }
 
+    @Override
     public void copy(int length) {
         if (length > text.length()) {
             length = text.length();
         }
         text = text.substring(0, length);
     }
-
-    private final void incChangesCount() {
-        changesCount++;
-    }
     
     public static int getChangesCount() {
         return changesCount;
     }
 
-    public void process() {
-        incChangesCount();
-    }
-    
+    @Override
     public void reset() {
         text = "";
         changesCount = 0;
@@ -46,4 +40,5 @@ public class Editor {
     public String toString() {
         return "Editor{" + "text='" + text + "'}";
     }
+
 }

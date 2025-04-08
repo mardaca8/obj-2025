@@ -1,9 +1,8 @@
 package editor;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-public class SpellCheck extends Editor {
+public class SpellCheck extends Editor implements EditorTools {
     private List<String> dictionary;
 
     public SpellCheck(String text) {
@@ -50,14 +49,15 @@ public class SpellCheck extends Editor {
 
         return true;
     }
-
+    
+    @Override
     public void reset() {
-        text = "";
+        super.reset();
         dictionary.clear();
     }
 
     @Override
-    public void process() {
+    public void spellcheck() {
         String[] words = text.split("\\s+");
         StringBuilder correctedText = new StringBuilder();
 
