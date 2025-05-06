@@ -1,6 +1,6 @@
 package editor;
 
-public abstract class Editor implements TextOperations {
+public abstract class Editor {
     protected String text;
     private static int changesCount = 0;
 
@@ -12,13 +12,13 @@ public abstract class Editor implements TextOperations {
         this("");
     }
 
-    @Override
+    
     public void put(String newtext) {
         text = text + newtext; 
         changesCount++;          
     }
 
-    @Override
+    
     public void copy(int length) {
         if (length > text.length()) {
             length = text.length();
@@ -30,7 +30,7 @@ public abstract class Editor implements TextOperations {
         return changesCount;
     }
 
-    @Override
+    
     public void reset() {
         text = "";
         changesCount = 0;

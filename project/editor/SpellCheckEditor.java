@@ -2,15 +2,15 @@ package editor;
 
 import java.util.*;
 
-public class SpellCheck extends Editor implements EditorTools {
+public class SpellCheckEditor extends Editor implements EditorTools ,Cloneable {
     private List<String> dictionary;
 
-    public SpellCheck(String text) {
+    public SpellCheckEditor(String text) {
         super(text); 
         dictionary = new LinkedList<>();
     }
 
-    public SpellCheck() {
+    public SpellCheckEditor() {
         this("");
     }
     
@@ -56,7 +56,7 @@ public class SpellCheck extends Editor implements EditorTools {
         dictionary.clear();
     }
 
-    @Override
+    
     public void spellcheck() {
         String[] words = text.split("\\s+");
         StringBuilder correctedText = new StringBuilder();
@@ -72,4 +72,18 @@ public class SpellCheck extends Editor implements EditorTools {
     public String toString() {
         return "SpellCheck{" + "text='" + text + "'}";
     }
+
+    @Override
+    public SpellCheckEditor clone() {
+        try {
+            SpellCheckEditor cloned = (SpellCheckEditor) super.clone();
+
+            cloned.dictionary = new LinkedList<>(this.dictionary);
+            return cloned;
+
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Clone not supported", e);
+        }
+    }
+    
 }

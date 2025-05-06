@@ -1,45 +1,33 @@
-import editor.Translate;
-import editor.WordToTranslateNotFoundException;
+import editor.*;
 
 public class EditorTest {
     public static void main(String[] args) {
 
-        // EditorTools editor[] = { new SpellCheck()};
 
-        // ((SpellCheck) editor[0]).addWord("hello");
-        // editor[0].put("heklo wotld jaga");
-        // System.out.println(editor[0]);
-        // editor[0].spellcheck(); 
-        // System.out.println(editor[0]); 
-        // editor[0].reset();
 
-        Translate editor1 = new Translate();
-        editor1.put("hello");
+        EditorCreator factory = new SpellCheckEditorCreator();
+        SpellCheckEditor editor1 = (SpellCheckEditor) factory.createEditor();
+
+        editor1.put("hlllo");
+        System.out.print("1: ");
         System.out.println(editor1);
-        editor1.addWord("hello", "labas");
-        try {
-            editor1.translate(); 
-        } catch (WordToTranslateNotFoundException e) {
-            System.out.println(e.toString());
-        }
-        System.out.println(editor1);
-        editor1.reset(); 
+    
 
-        editor1.put("world");
-        System.out.println(editor1);
-        editor1.addWord("hello", "labas");
-        try {
-            editor1.translate(); 
-        } catch (WordToTranslateNotFoundException e) {
-            System.out.println(e.toString());
-        }
-        System.out.println(editor1);
+        SpellCheckEditor editor2 = editor1.clone();
 
-        // for (EditorTools i : editor) {
-        //     i.reset();
-        // }
+        editor2.addWord("hello");
 
-        //System.out.println(Editor.getChangesCount());
+        editor1.spellcheck();
+        editor2.spellcheck();
+
+       
+        System.out.print("1: ");
+        System.out.println(editor1);
+        System.out.print("2: ");
+        System.out.println(editor2);
+
+        
+
     }
 }
 

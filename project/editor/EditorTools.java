@@ -1,5 +1,5 @@
 package editor;
 
-public interface EditorTools extends TextOperations {
-    void spellcheck();
+public interface EditorTools {
+    void reset();
 }

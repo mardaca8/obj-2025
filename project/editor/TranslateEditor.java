@@ -2,7 +2,7 @@ package editor;
 
 import java.util.LinkedList;
 
-public class Translate extends Editor {
+public class TranslateEditor extends Editor implements EditorTools {
     private LinkedList<String> englishWords;
     private LinkedList<String> lithuanianWords;
 
