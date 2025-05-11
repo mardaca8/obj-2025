@@ -55,6 +55,7 @@ public class EditorGUI extends JFrame {
         JButton putButton = new JButton("Add text");
         JButton resetButton = new JButton("Reset");
         
+        
         buttonsPanel.add(putButton);
         buttonsPanel.add(resetButton);
         buttonsPanel.add(saveButton);
