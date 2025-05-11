@@ -6,16 +6,36 @@ import java.awt.event.ActionListener;
 
 
 public class EditorGUI extends JFrame {
-    private SpellCheckEditor editor;
+    private Editor editor;
     private JTextArea textArea;
     private JTextField inputField;
     private JLabel changesLabel;
-
+    
     
 
     public EditorGUI() {
-        EditorCreator factory = new SpellCheckEditorCreator();
-        editor = (SpellCheckEditor) factory.createEditor();
+        JDialog popupDialog = new JDialog(this, "Editor", true);
+        popupDialog.setSize(200, 100);
+        popupDialog.setLayout(new FlowLayout());
+
+        JButton translateButton = new JButton("Translate Editor");
+        JButton spellCheckButton = new JButton("Spellcheck Editor");
+
+        popupDialog.add(translateButton);
+        popupDialog.add(spellCheckButton);
+
+        translateButton.addActionListener(e -> {
+            editor = new TranslateEditor();
+            popupDialog.dispose(); 
+        });
+
+        spellCheckButton.addActionListener(e -> {
+            editor = new SpellCheckEditor();
+            popupDialog.dispose(); 
+        });
+
+        popupDialog.setLocationRelativeTo(this);
+        popupDialog.setVisible(true);
 
         setTitle("Teksto Redaktorius");
         setSize(400, 400);
@@ -53,7 +73,7 @@ public class EditorGUI extends JFrame {
         });
 
         saveButton.addActionListener(e -> {
-            SaveThread saveThread = new SaveThread(editor);
+            SaveThread saveThread = new SaveThread(editor.text);
             saveThread.start();
         });
         
@@ -63,6 +83,7 @@ public class EditorGUI extends JFrame {
             try {
                 loadThread.join();
                 updateDisplay();
+                System.out.println(editor.text);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }

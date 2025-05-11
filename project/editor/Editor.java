@@ -1,6 +1,6 @@
 package editor;
 
-public abstract class Editor {
+public abstract class Editor  {
     public String text;
     private static int changesCount = 0;
 

@@ -3,9 +3,9 @@ package editor;
 import java.io.*;
 
 public class LoadThread extends Thread {
-    private final SpellCheckEditor editor;
+    private final Editor editor;
 
-    public LoadThread(SpellCheckEditor editor) {
+    public LoadThread(Editor editor) {
         this.editor = editor;
     }
 
@@ -18,12 +18,12 @@ public class LoadThread extends Thread {
             in.readFully(data);
             String str = new String(data,"UTF-8");
             System.out.println("Loaded: " + str);
-
             synchronized (this) {
                 editor.reset();
                 editor.put(str);
-                System.out.println("Editor state updated successfully.");
-        }
+            }
+            System.out.println("Editor state updated successfully.");
+
         } catch (IOException e) {
             System.err.println("Error loading editor state: " + e.getMessage());
         }

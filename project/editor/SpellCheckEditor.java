@@ -3,7 +3,7 @@ package editor;
 import java.util.*;
 import java.io.*;
 
-public class SpellCheckEditor extends Editor implements Cloneable, Serializable {
+public class SpellCheckEditor extends Editor implements Cloneable {
     private List<String> dictionary;
 
     public SpellCheckEditor(String text) {
