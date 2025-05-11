@@ -1,8 +1,9 @@
 package editor;
 
 import java.util.*;
+import java.io.*;
 
-public class SpellCheckEditor extends Editor implements EditorTools ,Cloneable {
+public class SpellCheckEditor extends Editor implements Cloneable, Serializable {
     private List<String> dictionary;
 
     public SpellCheckEditor(String text) {
@@ -85,5 +86,6 @@ public class SpellCheckEditor extends Editor implements EditorTools ,Cloneable {
             throw new RuntimeException("Clone not supported", e);
         }
     }
-    
+
+
 }

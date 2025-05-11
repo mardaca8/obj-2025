@@ -1,7 +1,7 @@
 package editor;
 
 public abstract class Editor {
-    protected String text;
+    public String text;
     private static int changesCount = 0;
 
     public Editor(String text) {

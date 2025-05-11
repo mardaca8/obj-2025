@@ -5,26 +5,26 @@ public class EditorTest {
 
 
 
-        EditorCreator factory = new SpellCheckEditorCreator();
-        SpellCheckEditor editor1 = (SpellCheckEditor) factory.createEditor();
+        EditorCreator factory1 = new SpellCheckEditorCreator();
+        SpellCheckEditor editor1 = (SpellCheckEditor) factory1.createEditor();
 
-        editor1.put("hlllo");
-        System.out.print("1: ");
-        System.out.println(editor1);
+        EditorCreator factory2 = new TranslateEditorCreator();
+        TranslateEditor editor2 = (TranslateEditor) factory2.createEditor();
+
+        // editor1.put("hlllo");
+        // System.out.print("1: ");
+        // System.out.println(editor1);
     
 
-        SpellCheckEditor editor2 = editor1.clone();
+       
 
-        editor2.addWord("hello");
-
-        editor1.spellcheck();
-        editor2.spellcheck();
+    
 
        
-        System.out.print("1: ");
-        System.out.println(editor1);
-        System.out.print("2: ");
-        System.out.println(editor2);
+        // System.out.print("1: ");
+        // System.out.println(editor1);
+        // System.out.print("2: ");
+        // System.out.println(editor2);
 
         
 

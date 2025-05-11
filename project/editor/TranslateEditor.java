@@ -1,18 +1,18 @@
 package editor;
 
-import java.util.LinkedList;
+import java.util.*;
 
-public class TranslateEditor extends Editor implements EditorTools {
+public class TranslateEditor extends Editor {
     private LinkedList<String> englishWords;
     private LinkedList<String> lithuanianWords;
 
-    public Translate(String text) {
+    public TranslateEditor(String text) {
         super(text);
         englishWords = new LinkedList<>();
         lithuanianWords = new LinkedList<>();
     }
 
-    public Translate() {
+    public TranslateEditor() {
         this("");
     }
 
