@@ -1,8 +1,9 @@
 package editor;
 
+import java.io.*;
 import java.util.*;
 
-public class TranslateEditor extends Editor {
+public class TranslateEditor extends Editor implements Serializable {
     private LinkedList<String> englishWords;
     private LinkedList<String> lithuanianWords;
 

@@ -17,11 +17,11 @@ public class LoadThread extends Thread {
             byte[] data=new byte[length];
             in.readFully(data);
             String str = new String(data,"UTF-8");
-            System.out.println("Loaded: " + str);
             synchronized (this) {
                 editor.reset();
                 editor.put(str);
             }
+            System.out.println("Loaded: " + str);
             System.out.println("Editor state updated successfully.");
 
         } catch (IOException e) {

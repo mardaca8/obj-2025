@@ -13,12 +13,13 @@ public class SaveThread extends Thread {
     @Override
     public void run() {
         try {
-            System.out.println("Saved: " + text);
+            
             DataOutputStream out = new DataOutputStream(new FileOutputStream("editor_state.bin"));
             byte[] data=text.getBytes("UTF-8");
             out.writeInt(data.length);
             out.write(data);
             System.out.println("Editor state saved successfully.");
+            System.out.println("Saved: " + text);
         } catch (IOException e) {
             System.err.println("Error saving editor state: " + e.getMessage());
         }

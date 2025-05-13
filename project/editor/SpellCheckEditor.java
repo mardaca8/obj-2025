@@ -1,9 +1,9 @@
 package editor;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class SpellCheckEditor extends Editor implements Cloneable {
+public class SpellCheckEditor extends Editor implements Cloneable, Serializable {
     private List<String> dictionary;
 
     public SpellCheckEditor(String text) {
