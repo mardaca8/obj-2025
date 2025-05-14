@@ -3,7 +3,7 @@ package editor;
 import java.io.*;
 
 public class LoadThread extends Thread {
-    private final Editor editor;
+    private Editor editor;
 
     public LoadThread(Editor editor) {
         this.editor = editor;
@@ -12,19 +12,20 @@ public class LoadThread extends Thread {
     @Override
     public void run() { 
         try {
-            DataInputStream in = new DataInputStream(new FileInputStream("editor_state.bin"));
-            int length=in.readInt();
-            byte[] data=new byte[length];
-            in.readFully(data);
-            String str = new String(data,"UTF-8");
+			ObjectInputStream oi = new ObjectInputStream(new FileInputStream("editor_state.txt"));
+            Editor loadedEditor = (Editor) oi.readObject();
+            oi.close();
+            System.err.println("loaded: " + loadedEditor);
+
             synchronized (this) {
-                editor.reset();
-                editor.put(str);
+                editor.updateState(loadedEditor);
             }
-            System.out.println("Loaded: " + str);
-            System.out.println("Editor state updated successfully.");
+            
+           
 
         } catch (IOException e) {
+            System.err.println("Error loading editor state: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
             System.err.println("Error loading editor state: " + e.getMessage());
         }
     }

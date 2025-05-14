@@ -1,8 +1,9 @@
 package editor;
 
-public abstract class Editor  {
+import java.io.*;
+
+public abstract class Editor implements Serializable {
     public String text;
-    private static int changesCount = 0;
 
     public Editor(String text) {
         this.text = text;
@@ -12,10 +13,12 @@ public abstract class Editor  {
         this("");
     }
 
+    public synchronized void updateState(Editor loadedEditor) {
+        this.text = loadedEditor.text;
+    }
     
     public void put(String newtext) {
-        text = text + newtext; 
-        changesCount++;          
+        text = text + newtext;           
     }
 
     
@@ -26,14 +29,8 @@ public abstract class Editor  {
         text = text.substring(0, length);
     }
     
-    public static int getChangesCount() {
-        return changesCount;
-    }
-
-    
     public void reset() {
         text = "";
-        changesCount = 0;
     }
 
     @Override

@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class SpellCheckEditor extends Editor implements Cloneable, Serializable {
-    private List<String> dictionary;
+    public List<String> dictionary;
 
     public SpellCheckEditor(String text) {
         super(text); 
@@ -55,6 +55,15 @@ public class SpellCheckEditor extends Editor implements Cloneable, Serializable 
     public void reset() {
         super.reset();
         dictionary.clear();
+    }
+
+    @Override
+    public void updateState(Editor loadedEditor) {
+        super.updateState(loadedEditor);
+        if (loadedEditor instanceof SpellCheckEditor) {
+            SpellCheckEditor loadedSpellCheck = (SpellCheckEditor) loadedEditor;
+            this.dictionary = new LinkedList<>(loadedSpellCheck.dictionary);
+        }
     }
 
     

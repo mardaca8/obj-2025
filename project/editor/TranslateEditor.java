@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.*;
 
 public class TranslateEditor extends Editor implements Serializable {
-    private LinkedList<String> englishWords;
-    private LinkedList<String> lithuanianWords;
+    public LinkedList<String> englishWords;
+    public LinkedList<String> lithuanianWords;
 
     public TranslateEditor(String text) {
         super(text);
@@ -54,6 +54,16 @@ public class TranslateEditor extends Editor implements Serializable {
         super.reset();
         englishWords.clear();
         lithuanianWords.clear();
+    }
+
+    @Override
+    public void updateState(Editor loadedEditor) {
+        super.updateState(loadedEditor);
+        if (loadedEditor instanceof TranslateEditor) {
+            TranslateEditor loadedTranslateEditor = (TranslateEditor) loadedEditor;
+            this.englishWords = new LinkedList<>(loadedTranslateEditor.englishWords);
+            this.lithuanianWords = new LinkedList<>(loadedTranslateEditor.lithuanianWords);
+        }
     }
 
     public void translate() throws WordToTranslateNotFoundException {

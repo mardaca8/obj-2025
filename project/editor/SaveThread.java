@@ -4,22 +4,19 @@ import java.io.*;
 
 
 public class SaveThread extends Thread {
-    private final String text;
+    public Editor editor;
 
-    public SaveThread(String text) {
-        this.text = text;
+    public SaveThread(Editor editor) {
+        this.editor = editor;
     }
 
     @Override
     public void run() {
         try {
-            
-            DataOutputStream out = new DataOutputStream(new FileOutputStream("editor_state.bin"));
-            byte[] data=text.getBytes("UTF-8");
-            out.writeInt(data.length);
-            out.write(data);
-            System.out.println("Editor state saved successfully.");
-            System.out.println("Saved: " + text);
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("editor_state.txt"));
+            out.writeObject(editor);
+            out.close();
+            System.err.println("saved: " + editor);
         } catch (IOException e) {
             System.err.println("Error saving editor state: " + e.getMessage());
         }

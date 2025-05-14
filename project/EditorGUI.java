@@ -92,7 +92,7 @@ public class EditorGUI extends JFrame {
         });
 
         saveButton.addActionListener(e -> {
-            SaveThread saveThread = new SaveThread(editor.text);
+            SaveThread saveThread = new SaveThread(editor);
             saveThread.start();
         });
         
@@ -102,7 +102,6 @@ public class EditorGUI extends JFrame {
             try {
                 loadThread.join();
                 updateDisplay();
-                System.out.println(editor.text);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
