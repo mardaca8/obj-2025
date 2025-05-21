@@ -17,21 +17,34 @@ public class TranslateEditor extends Editor implements Serializable {
         this("");
     }
 
+    public String getEnglishWords() {
+        StringBuilder englishContent = new StringBuilder();
+        for (String word : englishWords) {
+            englishContent.append(word).append("\n");
+        }
+        return englishContent.toString();
+    }
+
+    public String getLithuanianWords() {
+        StringBuilder lithuanianContent = new StringBuilder();
+        for (String word : lithuanianWords) {
+            lithuanianContent.append(word).append("\n");
+        }
+        return lithuanianContent.toString();
+    }
+
     public void addWord(String english, String lithuanian) {
         englishWords.add(english);
         lithuanianWords.add(lithuanian);
     }
 
-    public String translate(boolean toLithuanian) throws WordToTranslateNotFoundException {
+    public String translate(boolean toLithuanian) {
         String[] words = text.split("\\s+");
         StringBuilder translatedText = new StringBuilder();
 
         for (String word : words) {
             String translatedWord = translateWord(word, toLithuanian);
             translatedText.append(translatedWord).append(" ");
-            if (translatedWord.equals(word)) {
-                throw new WordToTranslateNotFoundException("Word not found in dictionary", word);
-            }
         }
 
         return translatedText.toString().trim();
@@ -66,7 +79,7 @@ public class TranslateEditor extends Editor implements Serializable {
         }
     }
 
-    public void translate() throws WordToTranslateNotFoundException {
+    public void translate() {
         text = translate(true);
     }
 

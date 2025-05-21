@@ -13,7 +13,7 @@ public class SaveThread extends Thread {
     @Override
     public void run() {
         try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("editor_state.txt"));
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("editor_state.bin"));
             out.writeObject(editor);
             out.close();
             System.err.println("saved: " + editor);

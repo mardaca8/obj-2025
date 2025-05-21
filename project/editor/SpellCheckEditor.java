@@ -33,6 +33,14 @@ public class SpellCheckEditor extends Editor implements Cloneable, Serializable 
         return word; 
     }
 
+    public String getDictionary() {
+        StringBuilder dictContent = new StringBuilder();
+        for (String word : dictionary) {
+            dictContent.append(word).append("\n");
+        }
+        return dictContent.toString();
+    }
+
     private boolean isOneCharDifferent(String word1, String word2) {
         if (word1.length() != word2.length()) {
             return false;
