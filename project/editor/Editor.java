@@ -2,7 +2,7 @@ package editor;
 
 import java.io.*;
 
-public abstract class Editor implements Serializable {
+public class Editor implements Serializable {
     public String text;
 
     public Editor(String text) {

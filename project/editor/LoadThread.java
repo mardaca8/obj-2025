@@ -1,14 +1,11 @@
 package editor;
 
-import java.beans.PropertyEditor;
-import javax.swing.text.AbstractDocument;
 import java.io.*;
 
 public class LoadThread extends Thread {
-    public Editor editor;
+    public Editor editor = new Editor();
 
     public LoadThread() {
-       
     }
 
     @Override
@@ -17,13 +14,13 @@ public class LoadThread extends Thread {
             
 			ObjectInputStream oi = new ObjectInputStream(new FileInputStream("editor_state.bin"));
             Editor loadedEditor = (Editor) oi.readObject();
+            System.err.println("loaded: " + loadedEditor);
             if (loadedEditor instanceof TranslateEditor) {
                 editor = new TranslateEditor();
             } else if (loadedEditor instanceof SpellCheckEditor) {
                 editor = new SpellCheckEditor();
             } 
             oi.close();
-            System.err.println("loaded: " + loadedEditor);
             synchronized (this) {
                 editor.updateState(loadedEditor);
             }

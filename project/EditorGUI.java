@@ -5,7 +5,7 @@ import javax.swing.*;
 
 
 public class EditorGUI extends JFrame {
-    private Editor editor;
+    private Editor editor = new Editor();
     private JTextArea textArea;
     private JTextField inputField;
     private JLabel changesLabel;
@@ -13,27 +13,17 @@ public class EditorGUI extends JFrame {
     public EditorGUI() {
         // pasirenkame redaktoriu
         JDialog popupDialog = new JDialog(this, "Editor", true);
-        popupDialog.setSize(200, 150);
+        popupDialog.setSize(150, 150);
         popupDialog.setLayout(new FlowLayout());
 
-        JButton tranButton = new JButton("Translate Editor");
-        JButton spellButton = new JButton("Spellcheck Editor");
+        JButton createEditor = new JButton("Create Editor");
         JButton loadButton = new JButton("Load Editor");
 
-        popupDialog.add(tranButton);
-        popupDialog.add(spellButton);
+        popupDialog.add(createEditor);
         popupDialog.add(loadButton);
 
-        tranButton.addActionListener(e -> {
-            editor = new TranslateEditor();
+        createEditor.addActionListener(e -> {
             popupDialog.dispose();
-            
-        });
-
-        spellButton.addActionListener(e -> {
-            editor = new SpellCheckEditor();
-            popupDialog.dispose();
-            
         });
 
         loadButton.addActionListener(e -> {
@@ -57,10 +47,10 @@ public class EditorGUI extends JFrame {
 
         popupDialog.setLocationRelativeTo(this);
         popupDialog.setVisible(true);
-        
+
         // sukuriame GUI
         setTitle("Teksto Redaktorius");
-        setSize(500, 500);
+        setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -75,22 +65,6 @@ public class EditorGUI extends JFrame {
         updateDisplay();
 
         inputField = new JTextField();
-        inputField.setText("Enter text");
-        inputField.addFocusListener(new java.awt.event.FocusAdapter() {
-                    @Override
-                    public void focusGained(java.awt.event.FocusEvent e) {
-                        if (inputField.getText().equals("Enter text")) {
-                            inputField.setText("");
-                        }
-                    }
-
-                    @Override
-                    public void focusLost(java.awt.event.FocusEvent e) {
-                        if (inputField.getText().isEmpty()) {
-                            inputField.setText("Enter text");
-                        }
-                    }
-                });
         add(inputField, BorderLayout.NORTH);
         
         inputField.addActionListener(e -> {
@@ -106,17 +80,40 @@ public class EditorGUI extends JFrame {
         JButton addWordButton = new JButton("Add Word");
         JButton translateButton = new JButton("Translate");
         JButton spellCheckButton = new JButton("Spell Check");
+        JButton switchEditorButton = new JButton("Switch Editor");
 
+        buttonsPanel.add(switchEditorButton);
         buttonsPanel.add(resetButton);
         buttonsPanel.add(saveButton);
-        buttonsPanel.add(addWordButton);
 
         if (editor instanceof TranslateEditor) {
-            buttonsPanel.add(translateButton);
+                buttonsPanel.add(translateButton);
+                buttonsPanel.add(addWordButton);
+        } else if (editor instanceof SpellCheckEditor) {
+                buttonsPanel.add(spellCheckButton);
+                buttonsPanel.add(addWordButton);
         }
-        else if (editor instanceof SpellCheckEditor) { 
-            buttonsPanel.add(spellCheckButton);
-        }
+
+        switchEditorButton.addActionListener(e -> {
+            if (editor instanceof TranslateEditor) {
+                editor = new SpellCheckEditor(editor.text);
+            } else {
+                editor = new TranslateEditor(editor.text);
+            }
+            updateDisplay();
+
+            if (editor instanceof TranslateEditor) {
+                buttonsPanel.remove(spellCheckButton);
+                buttonsPanel.add(translateButton);
+                buttonsPanel.add(addWordButton);
+            } else if (editor instanceof SpellCheckEditor) {
+                buttonsPanel.remove(translateButton);
+                buttonsPanel.add(spellCheckButton);
+                buttonsPanel.add(addWordButton);
+            }
+            buttonsPanel.revalidate();
+            buttonsPanel.repaint();
+        });
 
         add(buttonsPanel, BorderLayout.SOUTH);
 
@@ -161,41 +158,6 @@ public class EditorGUI extends JFrame {
                 JTextField wordField = new JTextField();
                 JTextField translationField = new JTextField();
 
-                wordField.setText("Enter English Word");
-                translationField.setText("Enter Lithuanian Word");
-
-                wordField.addFocusListener(new java.awt.event.FocusAdapter() {
-                    @Override
-                    public void focusGained(java.awt.event.FocusEvent e) {
-                        if (wordField.getText().equals("Enter English Word")) {
-                            wordField.setText("");
-                        }
-                    }
-
-                    @Override
-                    public void focusLost(java.awt.event.FocusEvent e) {
-                        if (wordField.getText().isEmpty()) {
-                            wordField.setText("Enter English Word");
-                        }
-                    }
-                });
-
-                translationField.addFocusListener(new java.awt.event.FocusAdapter() {
-                    @Override
-                    public void focusGained(java.awt.event.FocusEvent e) {
-                        if (translationField.getText().equals("Enter Lithuanian Word")) {
-                            translationField.setText("");
-                        }
-                    }
-
-                    @Override
-                    public void focusLost(java.awt.event.FocusEvent e) {
-                        if (translationField.getText().isEmpty()) {
-                            translationField.setText("Enter Lithuanian Word");
-                        }
-                    }
-                });
-                
 
                 inputPanel.add(wordField, BorderLayout.CENTER);
                 inputPanel.add(translationField, BorderLayout.SOUTH);
@@ -233,22 +195,6 @@ public class EditorGUI extends JFrame {
 
                 JPanel inputPanel = new JPanel(new BorderLayout());
                 JTextField wordField = new JTextField();
-                wordField.setText("Enter word");
-                wordField.addFocusListener(new java.awt.event.FocusAdapter() {
-                    @Override
-                    public void focusGained(java.awt.event.FocusEvent e) {
-                        if (wordField.getText().equals("Enter word")) {
-                            wordField.setText("");
-                        }
-                    }
-
-                    @Override
-                    public void focusLost(java.awt.event.FocusEvent e) {
-                        if (wordField.getText().isEmpty()) {
-                            wordField.setText("Enter word");
-                        }
-                    }
-                });
                 JButton addButton = new JButton("Add");
 
                 inputPanel.add(wordField, BorderLayout.CENTER);
@@ -263,25 +209,21 @@ public class EditorGUI extends JFrame {
                     }
                 });
 
-                
-
                 addWordDialog.setLocationRelativeTo(this);
                 addWordDialog.setVisible(true);
             } 
         });
         
-        if (editor instanceof TranslateEditor) {
+        
             translateButton.addActionListener(e -> {
                 ((TranslateEditor) editor).translate();
                 updateDisplay();
             });
-        }
-        else if (editor instanceof SpellCheckEditor) {
+        
             spellCheckButton.addActionListener(e -> {
                 ((SpellCheckEditor) editor).spellcheck();
                 updateDisplay();
             });
-        }
         
         setVisible(true);
     }
