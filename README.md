@@ -1,6 +1,6 @@
 # Teksto Redaktoriaus Aplikacija
 
-Šis projektas įgyvendina paprastą teksto redaktorių su pagrindinėmis funkcijomis ir dviem specializuotais redaktorių tipais: **Vertimo Redaktoriumi** ir **Rašybos Tikrinimo Redaktoriumi**. Aplikacija turi grafinę vartotojo sąsają (GUI), sukurtą naudojant Swing, leidžiančią vartotojams sąveikauti su redaktoriumi, išsaugoti ir įkelti jo būseną bei persijungti tarp redaktorių tipų.
+Šis projektas įgyvendina paprastą teksto redaktorių su pagrindinėmis funkcijomis ir dviem specializuotais redaktorių tipais: **Vertimo Redaktoriumi (Translate)** ir **Rašybos Tikrinimo Redaktoriumi (SpellCheck)**. Aplikacija turi grafinę vartotojo sąsają (GUI), sukurtą naudojant Swing, leidžiančią vartotojams naudoti redaktorių, išsaugoti ir įkelti jo būseną bei persijungti tarp redaktorių tipų.
 
 ### Funkcijos:
 
