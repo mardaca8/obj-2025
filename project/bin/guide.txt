@@ -1,1 +1,0 @@
-jar cfm TextEditor.jar manifest.txt editor/*.class *.class
